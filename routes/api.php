@@ -23,15 +23,8 @@ Route::get('/jobs', function() {
 });
 
 Route::get('/applications/{limit?}', function($limit=0) {
-    if ($limit) {
-
-        return collect(['data' => \App\Application::take($limit)->get()])->toJson();
-    } else {
-
-        return collect(['data' => \App\Application::all()])->toJson();
-
-    }
-
+    $applicationEntity = new \App\Application();
+    return collect(['data' => $applicationEntity->getApplications($limit)])->toJson();
 });
 
 
