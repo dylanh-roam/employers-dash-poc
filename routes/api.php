@@ -16,3 +16,20 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+
+Route::get('/jobs', function() {
+  return \App\Job::all()->toJson();
+});
+
+Route::get('/applications/{limit?}', function($limit=0) {
+    if ($limit) {
+
+        return collect(['data' => \App\Application::take($limit)->get()])->toJson();
+    } else {
+
+        return collect(['data' => \App\Application::all()])->toJson();
+        
+    }
+
+});
