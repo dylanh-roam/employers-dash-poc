@@ -29,7 +29,23 @@ Route::get('/applications/{limit?}', function($limit=0) {
     } else {
 
         return collect(['data' => \App\Application::all()])->toJson();
-        
+
     }
+
+});
+
+
+Route::post('/application/{id}/status/{newStatus}', function($id, $newStatus) {
+    $success =  \App\Application::find($id)->update(['status' => $newStatus]);
+
+    return collect(['data' => $success])->toJson();
+
+});
+
+
+
+Route::get('/application/{id}', function($id) {
+
+    return collect(['data' => \App\Application::find($id)])->toJson();
 
 });
